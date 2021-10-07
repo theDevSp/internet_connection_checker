@@ -71,7 +71,7 @@ class InternetConnectionChecker {
           '192.168.1.222', // CloudFlare
           type: InternetAddressType.IPv4,
         ),
-        port: 3222,
+        port: 5000,
         timeout: DEFAULT_TIMEOUT,
       ),
       AddressCheckOptions(
@@ -79,7 +79,7 @@ class InternetConnectionChecker {
           '41.249.253.87', // Google
           type: InternetAddressType.IPv4,
         ),
-        port: 3222,
+        port: 5000,
         timeout: Duration(seconds: 20),
       ),
     ],
