@@ -9,3 +9,11 @@ enum InternetConnectionStatus {
   /// disconnected from internet
   disconnected,
 }
+
+// ignore: public_member_api_docs
+enum DataConnectionLocation {
+  // ignore: public_member_api_docs
+  inside,
+  // ignore: public_member_api_docs
+  outside,
+}

@@ -68,51 +68,19 @@ class InternetConnectionChecker {
     <AddressCheckOptions>[
       AddressCheckOptions(
         InternetAddress(
-          '1.1.1.1', // CloudFlare
+          '192.168.1.222', // CloudFlare
           type: InternetAddressType.IPv4,
         ),
-        port: DEFAULT_PORT,
+        port: 3222,
         timeout: DEFAULT_TIMEOUT,
       ),
       AddressCheckOptions(
         InternetAddress(
-          '2606:4700:4700::1111', // CloudFlare
-          type: InternetAddressType.IPv6,
-        ),
-        port: DEFAULT_PORT,
-        timeout: DEFAULT_TIMEOUT,
-      ),
-      AddressCheckOptions(
-        InternetAddress(
-          '8.8.4.4', // Google
+          '41.249.253.87', // Google
           type: InternetAddressType.IPv4,
         ),
-        port: DEFAULT_PORT,
-        timeout: DEFAULT_TIMEOUT,
-      ),
-      AddressCheckOptions(
-        InternetAddress(
-          '2001:4860:4860::8888', // Google
-          type: InternetAddressType.IPv6,
-        ),
-        port: DEFAULT_PORT,
-        timeout: DEFAULT_TIMEOUT,
-      ),
-      AddressCheckOptions(
-        InternetAddress(
-          '208.67.222.222', // OpenDNS
-          type: InternetAddressType.IPv4,
-        ), // OpenDNS
-        port: DEFAULT_PORT,
-        timeout: DEFAULT_TIMEOUT,
-      ),
-      AddressCheckOptions(
-        InternetAddress(
-          '2620:0:ccc::2', // OpenDNS
-          type: InternetAddressType.IPv6,
-        ), // OpenDNS
-        port: DEFAULT_PORT,
-        timeout: DEFAULT_TIMEOUT,
+        port: 3222,
+        timeout: Duration(seconds: 20),
       ),
     ],
   );
@@ -130,7 +98,7 @@ class InternetConnectionChecker {
   ///
   /// See [AddressCheckOptions] for more info.
   List<AddressCheckOptions> addresses = DEFAULT_ADDRESSES;
-
+  DataConnectionLocation? _location;
   static final InternetConnectionChecker _instance =
       InternetConnectionChecker._();
 
@@ -147,6 +115,11 @@ class InternetConnectionChecker {
         timeout: options.timeout,
       )
         ..destroy();
+      if (options.address.toString().contains('192.168')) {
+        _location = DataConnectionLocation.inside;
+      } else if (options.address.toString().contains('41.249')) {
+        _location = DataConnectionLocation.outside;
+      }
       return AddressCheckResult(
         options,
         true,
@@ -195,6 +168,11 @@ class InternetConnectionChecker {
     return await hasConnection
         ? InternetConnectionStatus.connected
         : InternetConnectionStatus.disconnected;
+  }
+
+  // ignore: public_member_api_docs
+  Future<DataConnectionLocation?> get connectionLocation async {
+    return await hasConnection ? _location : null;
   }
 
   /// The interval between periodic checks. Periodic checks are
