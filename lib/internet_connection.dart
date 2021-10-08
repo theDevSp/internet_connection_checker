@@ -68,7 +68,7 @@ class InternetConnectionChecker {
     <AddressCheckOptions>[
       AddressCheckOptions(
         InternetAddress(
-          '192.168.1.222', // CloudFlare
+          '192.168.1.210', // CloudFlare
           type: InternetAddressType.IPv4,
         ),
         port: 5000,
