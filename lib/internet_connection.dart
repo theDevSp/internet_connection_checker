@@ -140,7 +140,6 @@ class InternetConnectionChecker {
   Future<bool> get hasConnection async {
     final Completer<bool> result = Completer<bool>();
     int length = addresses.length;
-    print('shit is done');
 
     for (AddressCheckOptions addressOptions in addresses) {
       isHostReachable(addressOptions).then(
