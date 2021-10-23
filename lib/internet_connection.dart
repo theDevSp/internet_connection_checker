@@ -172,7 +172,6 @@ class InternetConnectionChecker {
 
   // ignore: public_member_api_docs
   DataConnectionLocation? get connectionLocation => _location;
-  }
 
   /// The interval between periodic checks. Periodic checks are
   /// only made if there's an attached listener to [onStatusChange].
