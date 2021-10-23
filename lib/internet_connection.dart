@@ -117,7 +117,7 @@ class InternetConnectionChecker {
         ..destroy();
       if (options.address.toString().contains('192.168')) {
         _location = DataConnectionLocation.inside;
-      } else if (options.address.toString().contains('41.249')) {
+      } else if (options.address.toString().contains('41.249.253.87')) {
         _location = DataConnectionLocation.outside;
       }
       return AddressCheckResult(
@@ -171,8 +171,7 @@ class InternetConnectionChecker {
   }
 
   // ignore: public_member_api_docs
-  Future<DataConnectionLocation?> get connectionLocation async {
-    return await hasConnection ? _location : null;
+  DataConnectionLocation? get connectionLocation => _location;
   }
 
   /// The interval between periodic checks. Periodic checks are
